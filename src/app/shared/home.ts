@@ -7,7 +7,11 @@ import { RouterLink } from '@angular/router';
     template: `
         <h2>Demo Project</h2>
         <div style="margin-bottom: 80px">
-            <a routerLink="/errors" routerLinkActive="active">Testing errors</a>
+            Demos:
+            <ul>
+                <li><a routerLink="/errors" routerLinkActive="active">Testing errors</a></li>
+                <li><a routerLink="/worker" routerLinkActive="active">Using Web Worker</a></li>
+            </ul>
         </div>
     `
 })
