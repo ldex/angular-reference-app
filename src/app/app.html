@@ -1,3 +1,6 @@
+  @if (!isOnline()) {
+    <div style="background-color: red; color: white;padding: 4px;text-align: center;">You are offline! You can still use the app with read only data.</div>
+   }
 <header>
     <h1>
         {{ title() }}
@@ -28,7 +31,7 @@
   </div>
 </footer>
 
-@if(loading$ | async) {
+@if(isLoading()) {
   <div class="modal-loading">
   </div>
 }

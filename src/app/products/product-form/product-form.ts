@@ -10,10 +10,12 @@ import {
   max,
   schema,
   submit,
+  debounce,
 } from '@angular/forms/signals';
 import { Product } from '../../models/product';
 import { ProductService } from '../product-service';
 import { Router } from '@angular/router';
+import { NetworkStatusService } from '../../core/network-status-service';
 
 @Component({
   selector: 'app-product-form',
@@ -24,6 +26,9 @@ import { Router } from '@angular/router';
 export class ProductForm {
   private productService = inject(ProductService);
   private router = inject(Router);
+  private networkService = inject(NetworkStatusService);
+
+  protected readonly isOnline = this.networkService.isOnline;
 
   protected readonly product = signal({
     name: '',
@@ -36,16 +41,18 @@ export class ProductForm {
   });
 
   protected readonly productSchema = schema<Omit<Product, 'id'>>((path) => {
+    debounce(path.name, 500);
     required(path.name, { message: 'Name is required.'});
-    required(path.price, { message: 'Price is required.'});
-
     minLength(path.name, 3, { message: 'Name must be at least 3 characters long.'});
     maxLength(path.name, 50, { message: 'Name cannot exceed 50 characters.'});
-    minLength(path.description, 5, { message: 'Description must be at least 5 characters long.'});
-    maxLength(path.description, 500, { message: 'Description cannot exceed 500 characters.'});
 
+    required(path.price, { message: 'Price is required.'});
     min(path.price, 0, { message: 'Price cannot be negative.'});
     max(path.price, 100000, { message: 'Price cannot exceed 100 000.'});
+
+    debounce(path.description, 500);
+    minLength(path.description, 5, { message: 'Description must be at least 5 characters long.'});
+    maxLength(path.description, 500, { message: 'Description cannot exceed 500 characters.'});
 
     pattern(
       path.imageUrl,
@@ -60,13 +67,14 @@ export class ProductForm {
 
   protected readonly productForm = form(this.product, this.productSchema);
 
-  protected submitForm() {
+  protected submitForm(event: SubmitEvent) {
+    event.preventDefault(); // Prevent page reload (default browser behavior)
+
     submit(this.productForm, async (form) => {
       const newProduct = form().value();
       console.log('Product to save:', newProduct);
       await this.productService.createProduct(newProduct);
       this.router.navigateByUrl('/products');
     });
-    return false; // Prevent page reload (default browser behavior)
   }
 }

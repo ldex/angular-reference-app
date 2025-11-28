@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { BehaviorSubject, fromEvent, merge, Observable, of, map } from 'rxjs';
 
 @Injectable({
@@ -6,8 +6,11 @@ import { BehaviorSubject, fromEvent, merge, Observable, of, map } from 'rxjs';
 })
 export class NetworkStatusService {
 
-    private isOnlineSubject = new BehaviorSubject<boolean>(true);
-    isOnline$: Observable<boolean> = this.isOnlineSubject.asObservable();
+    private online = signal(true);
+    public readonly isOnline = this.online.asReadonly();
+
+   // private isOnlineSubject = new BehaviorSubject<boolean>(true);
+  //  isOnline$: Observable<boolean> = this.isOnlineSubject.asObservable();
 
     constructor() {
         merge(
@@ -15,6 +18,6 @@ export class NetworkStatusService {
             fromEvent<boolean>(window, "online").pipe(map(() => true)),
             of<boolean>(navigator.onLine)
         )
-        .subscribe(online => this.isOnlineSubject.next(online));
+        .subscribe(online => this.online.set(online));
     }
 }

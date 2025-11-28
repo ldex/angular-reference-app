@@ -1,5 +1,5 @@
 <h3>Create New Product</h3>
-<form (submit)="submitForm()" novalidate>
+<form (submit)="submitForm($event)" novalidate>
     <label for="name">Name:</label>
     <input id="name" type="text" [field]="productForm.name">
     <br />
@@ -25,7 +25,7 @@
     <input id="fixedPrice" type="checkbox" [field]="productForm.fixedPrice">
     <br />
 
-    <button type="submit" [disabled]="productForm().invalid() || productForm().submitting()">
+    <button type="submit" [disabled]="!isOnline() || productForm().invalid() || productForm().submitting()">
         @if (productForm().submitting()) {
         Saving ...
         } @else {

@@ -3,6 +3,8 @@ import { Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationErr
 import { AuthService } from './core/auth-service';
 import { debounceTime, filter, map, startWith } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
+import { NetworkStatusService } from './core/network-status-service';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-root',
@@ -12,11 +14,14 @@ import { AsyncPipe } from '@angular/common';
 export class App {
   private router = inject(Router);
   private authService = inject(AuthService);
+  private networkService = inject(NetworkStatusService);
 
   protected readonly title = signal('Angular Store');
   protected readonly version = signal(VERSION.full);
+  protected readonly isLoggedIn = this.authService.isLoggedIn;
+  protected readonly isOnline = this.networkService.isOnline;
 
-  loading$ = this.router.events.pipe(
+  private loading$ = this.router.events.pipe(
     filter(
       (e) =>
         e instanceof NavigationStart ||
@@ -29,7 +34,7 @@ export class App {
     startWith(false)
   );
 
-  readonly isLoggedIn = computed(() => this.authService.isLoggedIn());
+  protected readonly isLoading = toSignal(this.loading$);
 
   login() {
     this.router.navigateByUrl("/login");
