@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import {
   form,
   required,
@@ -16,6 +16,7 @@ import { Product } from '../../models/product';
 import { ProductService } from '../product-service';
 import { Router } from '@angular/router';
 import { NetworkStatusService } from '../../core/network-status-service';
+import { AuthService } from '../../core/auth-service';
 
 @Component({
   selector: 'app-product-form',
@@ -27,8 +28,10 @@ export class ProductForm {
   private productService = inject(ProductService);
   private router = inject(Router);
   private networkService = inject(NetworkStatusService);
+  private authService = inject(AuthService);
 
-  protected readonly isOnline = this.networkService.isOnline;
+  private readonly isOnline = this.networkService.isOnline;
+  private readonly isLoggedin = this.authService.isLoggedIn;
 
   protected readonly product = signal({
     name: '',
@@ -66,6 +69,7 @@ export class ProductForm {
   });
 
   protected readonly productForm = form(this.product, this.productSchema);
+  protected readonly disableSubmit = computed(() => !this.isOnline() || !this.isLoggedin() || this.productForm().invalid() || this.productForm().submitting())
 
   protected submitForm(event: SubmitEvent) {
     event.preventDefault(); // Prevent page reload (default browser behavior)

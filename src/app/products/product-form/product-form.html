@@ -25,7 +25,7 @@
     <input id="fixedPrice" type="checkbox" [field]="productForm.fixedPrice">
     <br />
 
-    <button type="submit" [disabled]="!isOnline() || productForm().invalid() || productForm().submitting()">
+    <button type="submit" [disabled]="disableSubmit()">
         @if (productForm().submitting()) {
         Saving ...
         } @else {

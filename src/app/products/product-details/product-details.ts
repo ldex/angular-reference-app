@@ -6,6 +6,7 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { NetworkStatusService } from '../../core/network-status-service';
+import { AuthService } from '../../core/auth-service';
 
 @Component({
   selector: 'app-product-details',
@@ -17,11 +18,13 @@ export class ProductDetails {
   private productService = inject(ProductService);
   private route = inject(ActivatedRoute);
   private titleService = inject(Title);
-  private networkService = inject(NetworkStatusService);
+  private networkService = inject(NetworkStatusService);  private authService = inject(AuthService);
 
+  private readonly isOnline = this.networkService.isOnline;
+  private readonly isLoggedin = this.authService.isLoggedIn;
   private productFromResolver = toSignal(this.route.data);
   protected readonly product = computed(() => this.productFromResolver().product);
-  protected readonly isOnline = this.networkService.isOnline;
+  protected readonly disableDelete = computed(() => !this.isOnline() || !this.isLoggedin())
 
   constructor() {
     this.titleService.setTitle(`Product Details for ${this.product()?.name}`);
