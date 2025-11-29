@@ -15,7 +15,8 @@ export class ProductService {
   private productsCache = signal<Product[]>([]);
   private loading = signal(false);
   readonly isLoading = this.loading.asReadonly();
-  error = signal<string>(undefined);
+  private _error = signal<string>(undefined);
+  readonly error = this._error.asReadonly();
 
   // Returning an observable because the resolver API is still observable-based
   getProductById(id: number): Observable<Product | undefined> {
@@ -79,6 +80,6 @@ export class ProductService {
       logMessage = `Backend returned code ${httpError.status}, body was: ${httpError.error}`;
     }
     console.error(logMessage);
-    this.error.set(userMessage);
+    this._error.set(userMessage);
   }
 }

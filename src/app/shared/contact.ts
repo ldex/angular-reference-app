@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-contact',
@@ -12,10 +13,18 @@ import { Component } from '@angular/core';
             </ul>
             Phone: (123) 456-7890<br/>
             Email: contact@web.com
+            <p>
+                <button (click)="gotoComposeMessage()">Send a message</button>
+            </p>
         </div>
     `,
 })
 export class Contact {
-    constructor() { }
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+
+  gotoComposeMessage() {
+    this.router.navigate([{ outlets: { side: ['message']} }], { relativeTo: this.route.parent });
+  }
 
 }

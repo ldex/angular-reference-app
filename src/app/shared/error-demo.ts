@@ -21,7 +21,7 @@ export class ErrorDemo {
   private http = inject(HttpClient);
 
   code_error(): void {
-    throw new Error('App Component has thrown an error!');
+    throw new Error('Component has thrown an error!');
   }
 
   nav_error(): void {

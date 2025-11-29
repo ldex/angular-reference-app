@@ -1,14 +1,14 @@
-import { Component, computed, inject, signal, VERSION } from '@angular/core';
+import { Component, inject, signal, VERSION } from '@angular/core';
 import { Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { AuthService } from './core/auth-service';
 import { debounceTime, filter, map, startWith } from 'rxjs';
-import { AsyncPipe } from '@angular/common';
 import { NetworkStatusService } from './core/network-status-service';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { AppNotification } from "./shared/notification";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, AsyncPipe],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, AppNotification],
   templateUrl: './app.html'
 })
 export class App {

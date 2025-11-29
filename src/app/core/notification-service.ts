@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal, Signal } from '@angular/core';
 
 import { Observable, BehaviorSubject } from 'rxjs';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
@@ -9,8 +9,8 @@ import { AppNotification } from '../models/notification';
 })
 export class NotificationService {
 
-  private _notification: BehaviorSubject<AppNotification> = new BehaviorSubject(null);
-  readonly notification$: Observable<AppNotification> = this._notification.asObservable();
+  private _notification = signal<AppNotification>(null);
+  readonly notification: Signal<AppNotification> = this._notification.asReadonly()
 
   constructor(
       private locationStrategy: LocationStrategy
@@ -35,8 +35,8 @@ export class NotificationService {
   }
 
   private notify(notificationContent:AppNotification): void {
-    this._notification.next(notificationContent);
-    setTimeout(() => this._notification.next(null), 3000);
+    this._notification.set(notificationContent);
+    setTimeout(() => this._notification.set(null), 3000);
   }
 
   private getLocation(): string {
