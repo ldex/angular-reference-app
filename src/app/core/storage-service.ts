@@ -1,10 +1,12 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { config } from '../../environments/environment';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
 })
 export class StorageService {
+  private readonly platform = inject(PLATFORM_ID);
   private readonly storageTokenKey: string = config.storageTokenKey;
 
   storeToken(token) {
@@ -14,7 +16,11 @@ export class StorageService {
   }
 
   getToken(): string {
-    return localStorage.getItem(this.storageTokenKey);
+    if (isPlatformBrowser(this.platform)) { // Runs only client side (SSR is enabled on this app)
+      return localStorage.getItem(this.storageTokenKey);
+    } else {
+      return null;
+    }
   }
 
    removeTokens() {

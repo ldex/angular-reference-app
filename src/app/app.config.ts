@@ -20,6 +20,7 @@ import { provideAppErrorHandler } from './core/global-error-handler';
 import { authInterceptor } from './interceptors/auth.interceptor';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { httpErrorInterceptor } from './interceptors/http-error.interceptor';
+import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -51,6 +52,6 @@ export const appConfig: ApplicationConfig = {
           allowedDomains: ['localhost:4200'],
         },
       })
-    ),
+    ), provideClientHydration(withEventReplay()),
   ],
 };
