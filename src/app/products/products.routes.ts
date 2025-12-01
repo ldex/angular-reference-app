@@ -4,6 +4,7 @@ import { ProductList } from "./product-list/product-list";
 import { ProductForm } from "./product-form/product-form";
 import { Products } from "./products";
 import { productResolver } from "./product.resolver";
+import { ProductListStore } from "./product-list-store/product-list-store";
 
 export const productsRoutes: Routes = [
     {
@@ -11,6 +12,7 @@ export const productsRoutes: Routes = [
       component: Products,
       children: [
         { path: '', component: ProductList, title: 'Product List' },
+        { path: 'store', component: ProductListStore, title: 'Product List' },
         { path: 'create', component: ProductForm, title: 'Create Product' },
         { path: ':id', component: ProductDetails, resolve: { product: productResolver } },
       ]
