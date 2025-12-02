@@ -8,6 +8,7 @@ import {
   withProps
 } from '@ngrx/signals';
 import { tapResponse } from '@ngrx/operators';
+import { withDevtools } from '@angular-architects/ngrx-toolkit';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { Observable, pipe, switchMap } from 'rxjs';
 import { Router } from '@angular/router';
@@ -18,6 +19,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 export const ProductStore = signalStore(
   { providedIn: 'root' },
+  withDevtools('products'),
   withState({
     products: [] as Product[],
     isLoading: false,
