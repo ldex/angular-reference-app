@@ -18,7 +18,8 @@ export class ProductDetails {
   private productService = inject(ProductService);
   private route = inject(ActivatedRoute);
   private titleService = inject(Title);
-  private networkService = inject(NetworkStatusService);  private authService = inject(AuthService);
+  private networkService = inject(NetworkStatusService);
+  private authService = inject(AuthService);
 
   private readonly isOnline = this.networkService.isOnline;
   private readonly isLoggedin = this.authService.isLoggedIn;
