@@ -34,8 +34,24 @@ export class ProductListStore {
     this.selectedProduct.set(null);
   }
 
+  resetPagination() {
+    this.pageSize.set(5)
+    this.start.set(0)
+    this.end.set(this.pageSize())
+    this.pageNumber.set(1)
+  }
+
   protected selectProduct(product: Product) {
     this.selectedProduct.set(product);
     this.router.navigate(['/products', product.id]);
+  }
+
+  protected refreshList() {
+    this.productStore.forceRefresh()
+    this.resetPagination()
+  }
+
+  protected loadMore() {
+    this.productStore.loadProducts()
   }
 }

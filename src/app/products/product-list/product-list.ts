@@ -46,7 +46,7 @@ export class ProductList {
     this.router.navigate(['/products', product.id]);
   }
 
-  refreshList() {
+  protected refreshList() {
     this.productService.forceRefresh()
     this.resetPagination()
   }

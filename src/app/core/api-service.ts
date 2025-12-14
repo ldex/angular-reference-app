@@ -29,11 +29,11 @@ export class ApiService {
       params: params,
     };
 
-    return this.http.get<Product[]>(this.productsBaseUrl, options).pipe(delay(1000)); // Simulating network delay
+    return this.http.get<Product[]>(this.productsBaseUrl, options).pipe(delay(500)); // Simulating network delay
   }
 
   getProductById(id: number): Observable<Product> {
-    return this.http.get<Product>(this.productsBaseUrl + id);
+    return this.http.get<Product>(this.productsBaseUrl + id).pipe(delay(500)); // Simulating network delay
   }
 
   createProduct(product: Omit<Product, 'id'>) {
