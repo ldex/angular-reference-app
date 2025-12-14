@@ -17,11 +17,22 @@ export class ApiService {
   private http = inject(HttpClient);
   private storageService = inject(StorageService);
 
-  getProducts() {
-    return this.http.get<Product[]>(this.productsBaseUrl).pipe(delay(1000)); // Simulating network delay
+  getProducts(pageToLoad: number = 1, productsToLoad: number = 10, sortBy: string = 'modifiedDate', order: string = 'desc'): Observable<Product[]> {
+    const params = {
+      page: pageToLoad,
+      limit: productsToLoad,
+      sortBy: sortBy,
+      order: order,
+    };
+
+    const options = {
+      params: params,
+    };
+
+    return this.http.get<Product[]>(this.productsBaseUrl, options).pipe(delay(1000)); // Simulating network delay
   }
 
-  getProductById(id: number) {
+  getProductById(id: number): Observable<Product> {
     return this.http.get<Product>(this.productsBaseUrl + id);
   }
 
@@ -35,14 +46,11 @@ export class ApiService {
 
   getUserProfile(): Observable<any> {
     const authToken = this.storageService.getToken();
-    const headers = {'Authorization': `Bearer ${authToken}` };
+    const headers = { Authorization: `Bearer ${authToken}` };
 
-      return this
-              .http
-              .get<any>(this.adminBaseUrl, { headers })
-              .pipe(
-                map(response => response.profile)
-              );
+    return this.http
+      .get<any>(this.adminBaseUrl, { headers })
+      .pipe(map((response) => response.profile));
   }
 
   login(username: string, password: string) {
@@ -51,6 +59,6 @@ export class ApiService {
       password: password,
     };
 
-    return this.http.post<Auth>(this.authBaseUrl, body)
+    return this.http.post<Auth>(this.authBaseUrl, body);
   }
 }

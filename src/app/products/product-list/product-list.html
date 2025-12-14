@@ -22,6 +22,7 @@
 </ul>
 
 <div class="right">
+    <a href="javascript:void(0)" (click)="refreshList()">Refresh List</a> |
     <a routerLink="store">Signal Store version</a> |
     <a routerLink="create">Create new product...</a>
 </div>
@@ -35,5 +36,10 @@
     <button (click)="changePage(1)" [disabled]="products().length <= end()">
         Next Page
     </button>
+    @if (products().length <= end()) {
+        <button (click)="loadMore()">
+            Load 10 more...
+        </button>
+    }
 </div>
 }

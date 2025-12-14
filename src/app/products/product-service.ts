@@ -18,6 +18,9 @@ export class ProductService {
   private _error = signal<string>(undefined);
   readonly error = this._error.asReadonly();
 
+  private pageToLoad = signal(1);
+  private productsToLoad = signal(10);
+
   // Returning an observable because the resolver API is still observable-based
   getProductById(id: number): Observable<Product | undefined> {
     if (this.productsCache().length > 0) {
@@ -28,22 +31,31 @@ export class ProductService {
     return this.apiService.getProductById(id);
   }
 
-  getProducts() {
-    if (this.productsCache().length > 0) {
-      return this.productsCache;
+  getProducts(): Signal<Product[]> {
+    if (this.productsCache().length == 0) {
+      this.loadProducts()
     }
+    return this.productsCache.asReadonly();
+  }
 
+  loadProducts(): void {
     this.loading.set(true);
-    this.apiService.getProducts().subscribe({
-      next: (products) => {
-        this.productsCache.set(products);
+    this.apiService.getProducts(this.pageToLoad(), this.productsToLoad()).subscribe({
+      next: (moreProducts) => {
+        this.productsCache.update((products) => [...products, ...moreProducts]);
         this.loading.set(false);
+        this.pageToLoad.update(p => p + 1)
       },
       error: (error: HttpErrorResponse) => {
         this.handleError(error, 'Failed to load products.');
       },
     });
-    return this.productsCache;
+  }
+
+  forceRefresh() {
+    this.productsCache.set([]);
+    this.pageToLoad.set(1);
+    this.loadProducts()
   }
 
   createProduct(newProduct: Omit<Product, 'id'>): Promise<void> {
