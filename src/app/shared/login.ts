@@ -1,4 +1,4 @@
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, ViewChild, AfterViewInit, ElementRef, inject } from '@angular/core';
 import { NgForm, FormsModule } from "@angular/forms";
 import { AuthService } from '../core/auth-service';
@@ -35,6 +35,7 @@ export class Login implements AfterViewInit {
 
     private authService = inject(AuthService);
     private router = inject(Router);
+    private route = inject(ActivatedRoute);
 
     loginUser(form: NgForm) {
         if (form.valid) {
@@ -43,7 +44,8 @@ export class Login implements AfterViewInit {
                 .subscribe(
                     result => {
                         if (result) {
-                            this.router.navigateByUrl('/admin');
+                            const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/admin';
+                            this.router.navigateByUrl(returnUrl);
                         } else {
                             this.error = 'Invalid username or password!';
                         }

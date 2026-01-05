@@ -10,6 +10,7 @@ import {
   withPreloading,
   withDebugTracing,
   withViewTransitions,
+  TitleStrategy,
 } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -21,6 +22,7 @@ import { authInterceptor } from './interceptors/auth.interceptor';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { httpErrorInterceptor } from './interceptors/http-error.interceptor';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
+import { AppTitleStrategy } from './app-title-strategy';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -43,6 +45,7 @@ export const appConfig: ApplicationConfig = {
             enabled: !isDevMode(),
             registrationStrategy: 'registerWhenStable:30000'
     }),
+    {provide: TitleStrategy, useClass: AppTitleStrategy},
     importProvidersFrom(
       JwtModule.forRoot({
         config: {
@@ -52,6 +55,7 @@ export const appConfig: ApplicationConfig = {
           allowedDomains: ['localhost:4200'],
         },
       })
-    ), provideClientHydration(withEventReplay()),
+    ),
+    provideClientHydration(withEventReplay()),
   ],
 };

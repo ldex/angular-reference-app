@@ -14,8 +14,11 @@ export const loginRouteGuard: CanActivateFn = (
   const authService = inject(AuthService);
   const router = inject(Router);
 
-  if (!authService.isLoggedIn()) {
-    return router.parseUrl("/login");
+  if (authService.isLoggedIn()) {
+    return true;
   }
-  return true;
+
+  return router.createUrlTree(['/login'], {
+    queryParams: { returnUrl: next.url.join('/') },
+  });
 };
