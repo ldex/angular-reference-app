@@ -9,12 +9,14 @@ import { loginRouteGuard } from './login-route.guard';
 import { ErrorDemo } from './shared/error-demo';
 import { WorkerDemo } from './shared/worker-demo';
 import { Contact } from './shared/contact';
+import { WorkerDemo2 } from './shared/worker-demo2';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'home', component: Home, title: 'Home' },
     { path: 'errors', component: ErrorDemo, title: 'Errors demo' },
     { path: 'worker', component: WorkerDemo, title: 'Worker demo' },
+    { path: 'worker-demo', component: WorkerDemo2, title: 'Worker demo for Lighthouse' },
     { path: 'contact', component: Contact, title: 'Contact' },
     { path: 'message', component: ComposeMessage, outlet: 'side' },
     { path: 'admin', component: Admin, title: 'Admin', canActivate: [loginRouteGuard] },

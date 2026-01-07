@@ -1,38 +1,36 @@
-import { Component, computed, effect, signal } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, computed, effect, inject, PLATFORM_ID, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-contact',
-  imports: [FormsModule, RouterLink],
+  imports: [FormsModule],
   template: `
-    <h2>Web Worker Demo</h2>
+    <h2>Web Worker Lighthouse Demo</h2>
     <div style="margin-bottom: 80px;margin-top: 40px">
-      <p><input type="checkbox" [(ngModel)]="useWorker" /> Use worker ?</p>
-      <button (click)="calculate()">{{ buttonText() }}</button>
-      @if(isCalculating()) {
-        <div class="loading"></div>
-      }
-      <h3>{{ result() }}</h3>
-      <a routerLink="/worker-demo">Lighthouse demo</a>
+      <h3>
+        {{ title() }}
+      </h3>
     </div>
   `,
 })
-export class WorkerDemo {
-  useWorker = signal(true);
+export class WorkerDemo2 {
+  useWorker = signal(true); // Lighthouse requires the worker to be used to pass the audit
+
   result = signal('');
   isCalculating = signal(false);
-  buttonText = computed(() =>
+  title = computed(() =>
     this.useWorker()
-      ? 'Running 2s computation within a Web Worker...'
-      : 'Running 2s computation as blocking script!'
+      ? 'Running 2s computation in the constructor (using a Web Worker)'
+      : 'Running 2s computation in the constructor (blocking script)!'
   );
+  private readonly platform = inject(PLATFORM_ID);
 
   constructor() {
-    effect(() => {
-      console.log('useWorker changed:', this.useWorker());
-      this.result.set('');
-    });
+    // This app is using SSR so we need to check the platform (workers are not supported on the server)
+    if (isPlatformBrowser(this.platform)) {
+      this.calculate();
+    }
   }
 
   calculate() {
@@ -52,14 +50,14 @@ export class WorkerDemo {
   }
 
   private runInWorker() {
-    console.time('web worker duration');
+    console.time('web worker duration.');
     this.isCalculating.set(true);
     const worker = new Worker(new URL('../core/compute.worker', import.meta.url), {
       type: 'module',
     });
     worker.onmessage = ({ data }) => {
       console.log(data);
-      console.timeEnd('web worker duration');
+      console.timeEnd('web worker duration.');
       this.result.set('Finished');
     this.isCalculating.set(false);
     };
