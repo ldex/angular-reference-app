@@ -1,10 +1,9 @@
 import { Component, computed, effect, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from "@angular/router";
 
 @Component({
-  selector: 'app-contact',
-  imports: [FormsModule, RouterLink],
+  selector: 'app-worker',
+  imports: [FormsModule],
   template: `
     <h2>Web Worker Demo</h2>
     <div style="margin-bottom: 80px;margin-top: 40px">
@@ -14,7 +13,6 @@ import { RouterLink } from "@angular/router";
         <div class="loading"></div>
       }
       <h3>{{ result() }}</h3>
-      <a routerLink="/worker-demo">Lighthouse demo</a>
     </div>
   `,
 })

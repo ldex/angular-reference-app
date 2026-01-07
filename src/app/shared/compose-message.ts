@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 @Component({
+  selector: 'app-compose-message',
   template: `
     <h3>Contact Us</h3>
     <div>

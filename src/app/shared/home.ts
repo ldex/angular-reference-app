@@ -10,6 +10,7 @@ import { RouterLink } from '@angular/router';
             Demos:
             <ul>
                 <li><a routerLink="/errors" routerLinkActive="active">Testing errors</a></li>
+                <li><a routerLink="/defer" routerLinkActive="active">Defer</a></li>
                 <li><a routerLink="/worker" routerLinkActive="active">Using Web Worker</a></li>
             </ul>
         </div>
