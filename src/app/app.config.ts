@@ -19,7 +19,7 @@ import { config } from '../environments/environment';
 import { provideServiceWorker } from '@angular/service-worker';
 import { provideAppErrorHandler } from './core/global-error-handler';
 import { authInterceptor } from './interceptors/auth.interceptor';
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { httpErrorInterceptor } from './interceptors/http-error.interceptor';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { AppTitleStrategy } from './app-title-strategy';
@@ -32,7 +32,8 @@ export const appConfig: ApplicationConfig = {
       withInterceptors([
         authInterceptor,
         httpErrorInterceptor
-      ])
+      ]),
+      withFetch()
     ),
     provideRouter(
       routes,

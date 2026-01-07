@@ -6,7 +6,6 @@ import {
   makeEnvironmentProviders,
 } from '@angular/core';
 import { ErrorService } from './error-service';
-import { DialogService } from './dialog-service';
 import { NotificationService } from './notification-service';
 
 @Injectable({
