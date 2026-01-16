@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { EnvironmentProviders, Injectable, makeEnvironmentProviders } from "@angular/core";
 import { Title } from "@angular/platform-browser";
 import { TitleStrategy, RouterStateSnapshot } from "@angular/router";
 
@@ -14,3 +14,8 @@ export class AppTitleStrategy extends TitleStrategy {
     }
   }
 }
+
+export function provideAppTitleStrategy(): EnvironmentProviders {
+  return makeEnvironmentProviders([{ provide: TitleStrategy, useClass: AppTitleStrategy }]);
+}
+

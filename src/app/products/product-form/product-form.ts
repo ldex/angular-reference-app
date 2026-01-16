@@ -3,7 +3,6 @@ import {
   form,
   required,
   minLength,
-  Field,
   maxLength,
   pattern,
   min,
@@ -11,6 +10,7 @@ import {
   schema,
   submit,
   debounce,
+  FormField,
 } from '@angular/forms/signals';
 import { Product } from '../../models/product';
 import { ProductService } from '../product-service';
@@ -20,7 +20,7 @@ import { AuthService } from '../../core/auth-service';
 
 @Component({
   selector: 'app-product-form',
-  imports: [Field],
+  imports: [FormField],
   templateUrl: './product-form.html',
   styleUrl: './product-form.css',
 })

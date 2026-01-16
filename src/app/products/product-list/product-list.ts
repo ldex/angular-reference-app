@@ -2,12 +2,11 @@ import { ChangeDetectionStrategy, Component, inject, signal, WritableSignal } fr
 import { Product } from '../../models/product';
 import { CurrencyPipe, JsonPipe, SlicePipe, UpperCasePipe } from '@angular/common';
 import { ProductService } from '../product-service';
-import { OrderByPipe } from '../orderBy.pipe';
 import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-product-list',
-  imports: [UpperCasePipe, CurrencyPipe, OrderByPipe, JsonPipe, SlicePipe, RouterLink],
+  imports: [UpperCasePipe, CurrencyPipe, JsonPipe, SlicePipe, RouterLink],
   templateUrl: './product-list.html',
   styleUrl: './product-list.css',
   changeDetection: ChangeDetectionStrategy.OnPush

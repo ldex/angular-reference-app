@@ -22,7 +22,9 @@ import { authInterceptor } from './interceptors/auth.interceptor';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { httpErrorInterceptor } from './interceptors/http-error.interceptor';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
-import { AppTitleStrategy } from './app-title-strategy';
+import { AppTitleStrategy, provideAppTitleStrategy } from './app-title-strategy';
+import { provideSignalFormsConfig } from '@angular/forms/signals';
+import { NG_STATUS_CLASSES } from '@angular/forms/signals/compat';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -35,6 +37,9 @@ export const appConfig: ApplicationConfig = {
       ]),
       withFetch()
     ),
+    provideSignalFormsConfig({
+      classes: NG_STATUS_CLASSES,
+    }),
     provideRouter(
       routes,
       withComponentInputBinding(),
@@ -46,7 +51,8 @@ export const appConfig: ApplicationConfig = {
             enabled: !isDevMode(),
             registrationStrategy: 'registerWhenStable:30000'
     }),
-    {provide: TitleStrategy, useClass: AppTitleStrategy},
+    provideAppTitleStrategy(),
+    provideClientHydration(withEventReplay()),
     importProvidersFrom(
       JwtModule.forRoot({
         config: {
@@ -57,6 +63,5 @@ export const appConfig: ApplicationConfig = {
         },
       })
     ),
-    provideClientHydration(withEventReplay()),
   ],
 };

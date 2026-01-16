@@ -13,3 +13,16 @@ label {
     float:left;
     width: 120px;
 }
+
+.errorMessage {
+    color: red;
+}
+input.ng-dirty.ng-valid,
+textarea.ng-dirty.ng-valid {
+  border: 3px solid green;
+}
+
+input.ng-dirty.ng-invalid,
+textarea.ng-dirty.ng-invalid {
+  border: 3px solid red;
+}
