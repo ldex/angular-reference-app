@@ -1,6 +1,6 @@
 import { Injectable, signal, Signal } from '@angular/core';
 
-import { Observable, BehaviorSubject } from 'rxjs';
+
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { AppNotification } from '../models/notification';
 
