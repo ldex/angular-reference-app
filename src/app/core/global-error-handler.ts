@@ -3,7 +3,7 @@ import {
   ErrorHandler,
   inject,
   Injectable,
-  makeEnvironmentProviders,
+  makeEnvironmentProviders
 } from '@angular/core';
 import { ErrorService } from './error-service';
 import { NotificationService } from './notification-service';

@@ -9,13 +9,13 @@ export class StorageService {
   private readonly platform = inject(PLATFORM_ID);
   private readonly storageTokenKey: string = config.storageTokenKey;
 
-  storeToken(token) {
+  storeToken(token: string) {
     // Store the token locally  in Local Storage (HTML5)
     // Check in Chrome Dev Tools / Application / Local Storage
     localStorage.setItem(this.storageTokenKey, token);
   }
 
-  getToken(): string {
+  getToken(): string | null {
     if (isPlatformBrowser(this.platform)) { // Runs only client side (SSR is enabled on this app)
       return localStorage.getItem(this.storageTokenKey);
     } else {

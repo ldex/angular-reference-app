@@ -10,7 +10,7 @@ export const authInterceptor: HttpInterceptorFn = (request, next) => {
   const storageService = inject(StorageService)
 
   // Get auth token (from local storage)
-  const authToken: string = storageService.getToken();
+  const authToken: string | null = storageService.getToken();
   if (authService.isLoggedIn() && authToken) {
     // inject the auth token to the Http Headers
     const reqWithAuth = request.clone({

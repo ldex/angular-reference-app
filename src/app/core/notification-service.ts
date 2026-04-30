@@ -9,8 +9,8 @@ import { AppNotification } from '../models/notification';
 })
 export class NotificationService {
 
-  private _notification = signal<AppNotification>(null);
-  readonly notification: Signal<AppNotification> = this._notification.asReadonly()
+  private _notification = signal<AppNotification | null>(null);
+  readonly notification: Signal<AppNotification | null> = this._notification.asReadonly()
 
   constructor(
       private locationStrategy: LocationStrategy

@@ -1,4 +1,4 @@
-import { inject, Injectable, Signal, signal, WritableSignal } from '@angular/core';
+import { computed, inject, Injectable, Signal, signal, WritableSignal } from '@angular/core';
 import { ApiService } from '../core/api-service';
 import { Product } from '../models/product';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -15,7 +15,7 @@ export class ProductService {
   private productsCache = signal<Product[]>([]);
   private loading = signal(false);
   readonly isLoading = this.loading.asReadonly();
-  private _error = signal<string>(undefined);
+  private _error = signal<string | undefined>(undefined);
   readonly error = this._error.asReadonly();
 
   private pageToLoad = signal(1);
