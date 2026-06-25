@@ -1,13 +1,11 @@
-import { computed, inject, Injectable, Signal, signal, WritableSignal } from '@angular/core';
+import { computed, inject, Service, Signal, signal, WritableSignal } from '@angular/core';
 import { ApiService } from '../core/api-service';
 import { Product } from '../models/product';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export class ProductService {
   private apiService = inject(ApiService);
   private router = inject(Router);

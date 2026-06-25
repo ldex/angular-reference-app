@@ -1,11 +1,9 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Service } from '@angular/core';
 import { LocationStrategy } from '@angular/common';
 import { Observable, of } from 'rxjs';
 import { serializeError } from 'serialize-error';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export class ErrorService {
 
   private locationStrategy = inject(LocationStrategy)

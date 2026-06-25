@@ -1,10 +1,8 @@
-import { inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { inject, Service, PLATFORM_ID } from '@angular/core';
 import { config } from '../../environments/environment';
 import { isPlatformBrowser } from '@angular/common';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export class StorageService {
   private readonly platform = inject(PLATFORM_ID);
   private readonly storageTokenKey: string = config.storageTokenKey;

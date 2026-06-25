@@ -1,5 +1,5 @@
 import { ActivatedRoute, Router } from '@angular/router';
-import { Component, AfterViewInit, ElementRef, inject, viewChild } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, inject, viewChild, ChangeDetectionStrategy } from '@angular/core';
 import { NgForm, FormsModule } from "@angular/forms";
 import { AuthService } from '../core/auth-service';
 
@@ -28,6 +28,7 @@ import { AuthService } from '../core/auth-service';
             margin-left: 100px;
         }
     `,
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [FormsModule]
 })
 export class Login implements AfterViewInit {

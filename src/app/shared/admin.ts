@@ -1,8 +1,9 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { ApiService } from '../core/api-service';
 
 @Component({
     selector: 'app-admin',
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <h2>Admin</h2>
         <div style="margin-bottom: 80px">

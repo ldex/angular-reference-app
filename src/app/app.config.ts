@@ -21,7 +21,7 @@ import { provideAppErrorHandler } from './core/global-error-handler';
 import { authInterceptor } from './interceptors/auth.interceptor';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { httpErrorInterceptor } from './interceptors/http-error.interceptor';
-import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
+import { provideClientHydration, withEventReplay, withNoIncrementalHydration } from '@angular/platform-browser';
 import { AppTitleStrategy, provideAppTitleStrategy } from './app-title-strategy';
 import { provideSignalFormsConfig } from '@angular/forms/signals';
 import { NG_STATUS_CLASSES } from '@angular/forms/signals/compat';
@@ -52,7 +52,7 @@ export const appConfig: ApplicationConfig = {
             registrationStrategy: 'registerWhenStable:30000'
     }),
     provideAppTitleStrategy(),
-    provideClientHydration(withEventReplay()),
+    provideClientHydration(withEventReplay(), withNoIncrementalHydration()),
     importProvidersFrom(
       JwtModule.forRoot({
         config: {

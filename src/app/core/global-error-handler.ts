@@ -2,15 +2,13 @@ import {
   EnvironmentProviders,
   ErrorHandler,
   inject,
-  Injectable,
+  Service,
   makeEnvironmentProviders
 } from '@angular/core';
 import { ErrorService } from './error-service';
 import { NotificationService } from './notification-service';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export class GlobalErrorHandler implements ErrorHandler {
   private notificationService = inject(NotificationService);
   private errorService = inject(ErrorService);

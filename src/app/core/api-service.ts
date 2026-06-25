@@ -1,14 +1,12 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Service } from '@angular/core';
 import { Product } from '../models/product';
 import { delay, map, Observable } from 'rxjs';
 import { config } from '../../environments/environment';
 import { Auth } from '../models/auth';
 import { StorageService } from './storage-service';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export class ApiService {
   private readonly productsBaseUrl = config.productsApiUrl;
   private readonly authBaseUrl = config.authApiUrl;

@@ -1,12 +1,10 @@
-import { computed, inject, Injectable, signal } from '@angular/core';
+import { computed, inject, Service, signal } from '@angular/core';
 import { catchError, map, of } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { ApiService } from './api-service';
 import { StorageService } from './storage-service';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export class AuthService {
   private loggedIn = signal(false);
 

@@ -1,20 +1,16 @@
-import { Injectable, signal, Signal } from '@angular/core';
+import { inject, Service, signal, Signal } from '@angular/core';
 
 
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { AppNotification } from '../models/notification';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export class NotificationService {
 
   private _notification = signal<AppNotification | null>(null);
   readonly notification: Signal<AppNotification | null> = this._notification.asReadonly()
 
-  constructor(
-      private locationStrategy: LocationStrategy
-  ) {}
+  private readonly locationStrategy = inject(LocationStrategy);
 
   notifyMessage(message: string): void {
     let notificationContent:AppNotification = {

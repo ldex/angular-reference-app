@@ -1,4 +1,4 @@
-import { Component, computed, inject, input } from '@angular/core';
+import { Component, computed, inject, input, ChangeDetectionStrategy } from '@angular/core';
 import { Product } from '../../models/product';
 import { CurrencyPipe, DatePipe, UpperCasePipe } from '@angular/common';
 import { ProductService } from '../product-service';
@@ -12,6 +12,7 @@ import { AuthService } from '../../core/auth-service';
   selector: 'app-product-details',
   imports: [UpperCasePipe, CurrencyPipe, DatePipe],
   templateUrl: './product-details.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './product-details.css',
 })
 export class ProductDetails {

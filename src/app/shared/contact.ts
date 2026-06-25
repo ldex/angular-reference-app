@@ -1,8 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-contact',
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <h2>Contact Us</h2>
         <div style="margin-bottom: 80px">

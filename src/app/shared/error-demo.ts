@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-contact',
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <h2>Errors Demo</h2>
     <p>Try different kind of errors:</p>

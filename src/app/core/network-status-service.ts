@@ -1,10 +1,8 @@
 import { isPlatformBrowser } from '@angular/common';
-import { inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
+import { inject, Service, PLATFORM_ID, signal } from '@angular/core';
 import { fromEvent, merge, of, map } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export class NetworkStatusService {
     private readonly platform = inject(PLATFORM_ID);
 

@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BigDemo } from "./big";
 
 @Component({
   selector: 'app-contact',
   imports: [FormsModule, BigDemo],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <h2>@Defer Demo</h2>
     <div style="margin-top: 40px">

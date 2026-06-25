@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import {
   form,
   required,
@@ -22,6 +22,7 @@ import { AuthService } from '../../core/auth-service';
   selector: 'app-product-form',
   imports: [FormField],
   templateUrl: './product-form.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './product-form.css',
 })
 export class ProductForm {

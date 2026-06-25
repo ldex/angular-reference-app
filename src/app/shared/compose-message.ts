@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
@@ -50,6 +50,7 @@ import { FormsModule } from '@angular/forms';
       color: black;
     }
     `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [FormsModule],
 })
 export class ComposeMessage {
@@ -57,7 +58,7 @@ export class ComposeMessage {
   sending = false;
   message: string = '';
 
-  constructor(private router: Router) {}
+  private readonly router = inject(Router);
 
   send() {
     this.sending = true;

@@ -1,8 +1,9 @@
-import { Component, effect, inject, signal } from '@angular/core';
+import { Component, effect, inject, signal, ChangeDetectionStrategy } from '@angular/core';
 import { NotificationService } from '../core/notification-service';
 
 @Component({
     selector: 'app-notification',
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
     @if (notification(); as notification) {
         @if (notification.isError && showNotification()) {

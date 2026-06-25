@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
     selector: 'app-nav-error',
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
         <h2 class="errorMessage">Navigation Error!</h2>
         <p style="margin-bottom: 80px">
